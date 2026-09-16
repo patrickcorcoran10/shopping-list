@@ -1,0 +1,31 @@
+datasource db {
+  provider = "sqlite"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Topic {
+  id          String @id @default(cuid())
+  slug        String @unique
+  description String
+  items       ListItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ListItem {
+  id      String @id @default(cuid())
+  name   String
+  completed Boolean @default(false)
+  topicId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  topic    Topic     @relation(fields: [topicId], references: [id])
+
+  @@index([topicId])
+}
