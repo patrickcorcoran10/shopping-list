@@ -8,8 +8,7 @@ generator client {
 
 model Topic {
   id          String @id @default(cuid())
-  slug        String @unique
-  description String
+  name        String @unique
   items       ListItem[]
 
   createdAt DateTime @default(now())
@@ -18,7 +17,7 @@ model Topic {
 
 model ListItem {
   id      String @id @default(cuid())
-  name   String
+  item   String
   completed Boolean @default(false)
   topicId String
 
